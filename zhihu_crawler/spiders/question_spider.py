@@ -8,7 +8,6 @@ import sys
 from getpass import getpass
 
 import scrapy
-import termcolor
 from scrapy.spidermiddlewares.httperror import HttpError
 from twisted.internet.error import DNSLookupError
 from twisted.internet.error import TimeoutError, TCPTimedOutError
@@ -39,7 +38,7 @@ def get_captcha_code(response, logger):
     else:
         logger.info(u"我们无法探测你的作业系统，请自行打开验证码 %s 文件，并输入验证码。" % os.path.join(os.getcwd(), image_name))
 
-    sys.stdout.write(termcolor.colored(u"请输入验证码: ", "cyan"))
+    sys.stdout.write(u"请输入验证码: ")
     captcha_code = raw_input()
     return captcha_code
 
@@ -58,7 +57,8 @@ class QuestionSpider(scrapy.Spider):
     has_login = False
 
     def start_requests(self):
-        if not self.account or not self.password:
+        # only read username when support terminal
+        if settings.TERMINAL and (not self.account or not self.password):
             sys.stdout.write(u"请输入登录账号(空为不登陆爬取): ")
             self.account = raw_input()
             if self.account:
