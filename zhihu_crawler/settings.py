@@ -95,7 +95,7 @@ DOWNLOADER_MIDDLEWARES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-TERMINAL = False
+TERMINAL = True
 USER_NAME = ''
 PASSWORD = ''
 
