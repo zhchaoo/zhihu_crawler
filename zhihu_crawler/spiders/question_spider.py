@@ -156,6 +156,7 @@ class QuestionSpider(scrapy.Spider):
             question_item["tag_list"] = \
                 response.xpath(
                     '//div[contains(@class, "zm-tag-editor-labels")]/a[@class="zm-item-tag"]/text()').extract()
+            question_item["tag_list"] = "|".join([i.replace('\n', '') for i in question_item["tag_list"]])
             if self.has_login:
                 follow_num = response.xpath('//div[@id="zh-question-side-header-wrap"]'
                                             '//div[contains(@class, "zg-gray-normal")]//strong/text()').re('\d+')
